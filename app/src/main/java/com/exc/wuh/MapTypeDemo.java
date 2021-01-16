@@ -917,8 +917,6 @@ public class MapTypeDemo extends AppCompatActivity {
         Type type = new TypeToken<BaseVo<SjcityvideodownloadTextFileVo>>() {
         }.getType();
 
-//        whBiz.sjcityvideogetVid(mHandler, commonParameter,
-//                CommonMessage.MSG_REQUEST_SUCCESS_14, CommonMessage.MSG_REQUEST_FAILURE_14, type);
     }
 
     //todo 请求出错时处理
