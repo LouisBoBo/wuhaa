@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">武汉市景观照明设施电子档案</string>
+    <string name="common_web_response_failed">网络开了个小差</string>
+</resources>

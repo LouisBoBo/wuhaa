@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/gu"
+    android:paddingBottom="@dimen/dp_10"
+    >
+
+    <TextView
+        android:id="@+id/fenqu_titleview"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="分区总览"
+        android:textSize="@dimen/dp_14"
+        android:padding="10dp"
+        android:textColor="@color/mark_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fenqu_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@id/fenqu_titleview"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/fenqu_textview"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="@dimen/dp_14"
+        android:text="分区介绍"
+        android:padding="10dp"
+        android:textColor="@color/mark_title"
+        app:layout_constraintTop_toBottomOf="@id/fenqu_recycleview"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/fenqu_contentview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fajfajflja"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="@color/color_ffffffff"
+        app:layout_constraintTop_toBottomOf="@id/fenqu_textview"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/close_fragment"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="X"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/color_ffffffff"
+        android:background="@mipmap/close"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

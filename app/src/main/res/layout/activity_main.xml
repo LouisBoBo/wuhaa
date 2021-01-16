@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        tools:ignore="MissingConstraints"
+        >
+
+    </com.baidu.mapapi.map.MapView>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="分区、站点、建筑"
+        android:textColorHint="@color/cardview_dark_background"
+        android:id="@+id/ed_search"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/search_cycle_text"
+        android:lines="1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="14dp"
+        android:textColor="@color/cardview_dark_background"
+        />
+
+    <view
+        android:id="@+id/selecttag"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="@id/ed_search"
+        app:layout_constraintTop_toBottomOf="@id/ed_search"
+        android:background="@color/color_ffffffff"
+        />
+
+
+    <Button
+        android:id="@+id/button_fenqu"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:text="分区"
+        app:layout_constraintStart_toStartOf="@id/selecttag"
+        app:layout_constraintTop_toTopOf="@id/selecttag"
+        android:layout_marginTop="15dp"
+        android:textSize="10dp"
+        />
+
+    <Button
+        android:id="@+id/button_zhandian"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:text="站点"
+        app:layout_constraintStart_toEndOf="@id/button_fenqu"
+        app:layout_constraintTop_toTopOf="@id/selecttag"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:textSize="10dp"
+        />
+    <Button
+        android:id="@+id/button_jianzu"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:text="建筑"
+        app:layout_constraintStart_toEndOf="@id/button_zhandian"
+        app:layout_constraintTop_toTopOf="@id/selecttag"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="10dp"
+        />
+
+    <Button
+        android:id="@+id/button_cancle"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:text="取消"
+        app:layout_constraintEnd_toEndOf="@id/selecttag"
+        app:layout_constraintTop_toTopOf="@id/selecttag"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="10dp"
+        />
+
+    <Button
+        android:id="@+id/button_confirm"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:text="确认"
+        app:layout_constraintEnd_toStartOf="@id/button_cancle"
+        app:layout_constraintTop_toTopOf="@id/selecttag"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="10dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintStart_toStartOf="@id/selecttag"
+        app:layout_constraintTop_toBottomOf="@id/selecttag"
+        android:id="@+id/recycleview"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="20dp"
+        android:background="@color/color_0d000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
