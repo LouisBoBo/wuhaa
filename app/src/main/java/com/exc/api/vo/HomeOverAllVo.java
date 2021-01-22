@@ -58,6 +58,10 @@ public class HomeOverAllVo {
 
         private String coordinate;
 
+        public int hierarchy;
+
+        public int id;
+
         public int count;
 
         public int bgColor;
@@ -100,6 +104,22 @@ public class HomeOverAllVo {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public int getHierarchy() {
+            return hierarchy;
+        }
+
+        public void setHierarchy(int hierarchy) {
+            this.hierarchy = hierarchy;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
         }
 
         public List<BuildingBean> getBuilding() {

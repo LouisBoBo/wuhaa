@@ -215,37 +215,20 @@ public class MapTypeDemo extends AppCompatActivity {
         public BitmapDescriptor getBitmapDescriptor() {//点图标
             int buildingTypeSn = building.getBuildingTypeSn();
             int isOnline = building.getIsOnline();
-//            int image = R.mipmap.newsetother_online;
-//
-//            switch (buildingTypeSn) {
-//                case 3://联机建筑物
-//                    image = R.mipmap.newsetlinkage_build_online;
-//                    break;
-//                case 4://动态建筑物
-//                    image = R.mipmap.newsetdongtai_build_online;
-//                    break;
-//                case 5://开关建筑物
-//                    image = R.mipmap.newsetswitch_build_online;
-//                    break;
-//                case 6://桥梁建筑
-//                    image = R.mipmap.newsetother_online;
-//                default:
-//            }
-
-            int image = R.mipmap.build_others;
+            int image = R.mipmap.newest_other_build;
 
             switch (buildingTypeSn) {
                 case 3://联机建筑物
-                    image = R.mipmap.build_linkage;
+                    image = R.mipmap.newest_linkage_build;
                     break;
                 case 4://动态建筑物
-                    image = R.mipmap.build_dongtai;
+                    image = R.mipmap.newest_dongtai_build;
                     break;
                 case 5://开关建筑物
-                    image = R.mipmap.build_switch;
+                    image = R.mipmap.newest_switch_build;
                     break;
                 case 6://桥梁建筑
-                    image = R.mipmap.build_bridge;
+                    image = R.mipmap.newest_bridge_build;
                 default:
             }
             return BitmapDescriptorFactory.fromResource(image);
@@ -450,6 +433,7 @@ public class MapTypeDemo extends AppCompatActivity {
     private FrameLayout topview;
 
 
+
     private int buildingID; //所选建筑物ID
     //todo 接口回调处理
     private WeakHandler mHandler = new WeakHandler(new Handler.Callback() {
@@ -594,7 +578,6 @@ public class MapTypeDemo extends AppCompatActivity {
                         if (partitionhomenewVoBaseVo.getCode() == 200) {
                             partitionhomenewVo = partitionhomenewVoBaseVo.getData();
                             myHandler.sendEmptyMessage(1011);
-                            ToastUtils.showToast(MapTypeDemo.this, partitionhomenewVoBaseVo.getMessage(), false);
                         } else {
                             ToastUtils.showToast(MapTypeDemo.this, partitionhomenewVoBaseVo.getMessage(), false);
                         }
@@ -806,11 +789,11 @@ public class MapTypeDemo extends AppCompatActivity {
         }.getType();
 
         String arg = CommonParameterKey.PARTITIONID + "=" + partitionId;
-        if (null != customDialog) {
-            customDialog.dismiss();
-            customDialog = new CustomDialog(MapTypeDemo.this);
-            customDialog.show();
-        }
+//        if (null != customDialog) {
+//            customDialog.dismiss();
+//            customDialog = new CustomDialog(MapTypeDemo.this);
+//            customDialog.show();
+//        }
 
         whBiz.partitionhomenew(mHandler,commonParameter,CommonMessage.MSG_REQUEST_SUCCESS_12,CommonMessage.MSG_REQUEST_FAILURE_12,type);
     }
@@ -1188,8 +1171,9 @@ public class MapTypeDemo extends AppCompatActivity {
                         //在地图上显示多边形
                         mPolygon = (Polygon) mBaiduMap.addOverlay(oldmPolygonOptions);
                         mPolygon.setZIndex(-99999);
-                        if(name == "两江四岸"){
-                            mPolygon.setZIndex(99999);
+
+                        if(homeOverAllVo.getData().getPartition().get(i).getHierarchy() == 2){
+                            mPolygon.setZIndex(0);
                         }
                     }
 
@@ -1227,22 +1211,9 @@ public class MapTypeDemo extends AppCompatActivity {
 
     public void clickdrawPoint(LatLng point) {
 
-        //两江四岸优先级最高优先处理
-        String top_pos = homeOverAllVo.getData().getPartition().get(12).getCoordinate();
-        List<List<Float>> top_ps = new Gson().fromJson(top_pos, new TypeToken<List<List<Float>>>() {
-        }.getType());
-
-        List<LatLng> top_points = new ArrayList<>();
-        for (int j = 0; j < top_ps.size(); j++) {
-            LatLng latLng = new LatLng(top_ps.get(j).get(1), top_ps.get(j).get(0));
-            top_points.add(latLng);
-        }
-        boolean top_result = SpatialRelationUtil.isPolygonContainsPoint(top_points,point);
-
         String pos = "";
-        for (int i = 1; i < partitionhomeVoList.size(); i++) {
-            PartitionhomeVo vo = partitionhomeVoList.get(i);
-            pos = vo.getPartCoordinates();
+        for (int i = 1; i < homeOverAllVo.getData().getPartition().size(); i++) {
+            pos = homeOverAllVo.getData().getPartition().get(i).getCoordinate();
 
             List<List<Float>> ps = new Gson().fromJson(pos, new TypeToken<List<List<Float>>>() {
             }.getType());
@@ -1257,24 +1228,58 @@ public class MapTypeDemo extends AppCompatActivity {
             }
 
             boolean result = SpatialRelationUtil.isPolygonContainsPoint(points, point);
+
+            LatLng centerlatlng = new LatLng(0,0);
+            int partitionCount = 0;
+            int partitionId = 0;
             if (result) {
                 //获取点击的分区名称
-                clickDistrict = partitionhomeVoList.get(i).getDistrict();
-                if(i==16 || i ==6){
-                    clickDistrict = partitionhomeVoList.get(i).getDescription();
-                }
+                clickDistrict = homeOverAllVo.getData().getPartition().get(i).getName();
 
                 //获取分区边界的中心点
-                LatLng centerlatlng = new LatLng(0,0);
-                int partitionCount = 0;
+                String list[] = homeOverAllVo.getData().getPartition().get(i).getCentralPoint().split(",");
+                double lat = convertToDouble(list[0],2021);
+                double lnt = convertToDouble(list[1],2021);
+
+                centerlatlng = new LatLng(lnt, lat);
+                partitionCount = homeOverAllVo.getData().getPartition().get(i).getCount();
+                partitionId = homeOverAllVo.getData().getPartition().get(i).getId();
+
                 for(int k=0;k<homeOverAllVo.getData().getPartition().size();k++){
-                    if(homeOverAllVo.getData().getPartition().get(k).getName().equals(vo.getName())){
-                        String list[] = homeOverAllVo.getData().getPartition().get(k).getCentralPoint().split(",");
-                        double lat = convertToDouble(list[0],2021);
-                        double lnt = convertToDouble(list[1],2021);
-                        centerlatlng = new LatLng(lnt, lat);
-                        partitionCount = homeOverAllVo.getData().getPartition().get(k).getCount();
-                        break;
+                    boolean top_result = false;
+
+                    //分区边界是否悬浮 优先级最高优先处理
+                    if(homeOverAllVo.getData().getPartition().get(k).getHierarchy() == 2){
+                        String top_pos = homeOverAllVo.getData().getPartition().get(k).getCoordinate();
+                        List<List<Float>> top_ps = new Gson().fromJson(top_pos, new TypeToken<List<List<Float>>>() {
+                        }.getType());
+
+                        if(top_pos.length() > 10){
+                            List<LatLng> top_points = new ArrayList<>();
+                            for (int j = 0; j < top_ps.size(); j++) {
+                                LatLng latLng = new LatLng(top_ps.get(j).get(1), top_ps.get(j).get(0));
+                                top_points.add(latLng);
+                            }
+                            top_result = SpatialRelationUtil.isPolygonContainsPoint(top_points,point);
+
+                            if(top_result){
+                                clickDistrict= homeOverAllVo.getData().getPartition().get(k).getName();
+                                partitionCount = homeOverAllVo.getData().getPartition().get(k).getCount();
+                                partitionId = homeOverAllVo.getData().getPartition().get(k).getId();
+
+                                points = top_points;
+                                //获取分区边界的中心点
+                                if(homeOverAllVo.getData().getPartition().get(k).getCentralPoint() !=null)
+                                {
+                                    String lalist[] = homeOverAllVo.getData().getPartition().get(k).getCentralPoint().split(",");
+                                    double latp = convertToDouble(lalist[0],2021);
+                                    double lntp = convertToDouble(lalist[1],2021);
+                                    centerlatlng = new LatLng(lntp, latp);
+                                }
+                                break;
+                            }
+                        }
+
                     }
                 }
 
@@ -1282,19 +1287,6 @@ public class MapTypeDemo extends AppCompatActivity {
                     mPolygon.remove();//先清除以前的边界
                 }
 
-                if(top_result){
-                    clickDistrict= homeOverAllVo.getData().getPartition().get(12).getName();
-                    points = top_points;
-                    //获取分区边界的中心点
-                    if(homeOverAllVo.getData().getPartition().get(12).getCentralPoint() !=null)
-                    {
-                        String list[] = homeOverAllVo.getData().getPartition().get(12).getCentralPoint().split(",");
-                        double lat = convertToDouble(list[0],2021);
-                        double lnt = convertToDouble(list[1],2021);
-                        centerlatlng = new LatLng(lnt, lat);
-                        partitionCount = homeOverAllVo.getData().getPartition().get(12).getCount();
-                    }
-                }
                 //构造PolygonOptions
                 oldmPolygonOptions = new PolygonOptions()
                         .points(points)
@@ -1307,7 +1299,6 @@ public class MapTypeDemo extends AppCompatActivity {
                 //在地图上显示气泡
                 setPopupTipsInfo(centerlatlng,clickDistrict);
 
-                int partitionId = top_result?32:(vo.getId());
                 if (querylist.size() > 0) {
 
                     group_searchview.setVisibility(View.INVISIBLE);
@@ -1325,6 +1316,7 @@ public class MapTypeDemo extends AppCompatActivity {
         }
 
     }
+
     //画气泡
     public void drawPop(LatLng point){
         BitmapDescriptor mbitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_marka);
@@ -1612,9 +1604,9 @@ public class MapTypeDemo extends AppCompatActivity {
 
     public void initboundaryData(){
         //分区名称 边界颜色
-        String[] p={"总控区","黄陂区","新洲区","江岸区/50所平台","东西湖区","硚口区","江汉区","汉阳区","经开区","青山区","洪山区"," 武昌区","东湖风景区","东湖高新区","江夏区","两江四岸"};
-        int[] c={0xFFfde6cc,0xFFfde6cc,0xFFfbf3ce,0xFFe3d6ff,0xFFffc7f1,0xFFffd1d1,0xFFfffdba,0xFFe3d6ff,0xFFc7fdec,0xFFfffdba,0xFFffd1d1,0xFFc7fdec,0xFFebccfe,0xFFebccfe,0xFFe3d6ff,0xFF9898ff};
-        int[] b={0x7Dfde6cc,0x7Dfde6cc,0x7Dfbf3ce,0x7De3d6ff,0x7Dffc7f1,0x7Dffd1d1,0x7Dfffdba,0x7De3d6ff,0x7Dc7fdec,0x7Dfffdba,0x7Dffd1d1,0x7Dc7fdec,0x7Debccfe,0x7Debccfe,0x7De3d6ff,0x7D9898ff};
+        String[] p={"总控区","黄陂区","新洲区","江岸区/50所平台","东西湖区","硚口区","江汉区","汉阳区","经开区","青山区","洪山区","武昌区","东湖风景区","东湖高新区","江夏区","两江四岸"};
+        int[] c={0xFFfde6cc,0xFFfde6cc,0xFFfbf3ce,0xFFe3d6ff,0xFFffc7f1,0xFFffd1d1,0xFFfffdba,0xFFe3d6ff,0xFFc7fdec,0xFFfffdba,0xFFffd1d1,0xFFc7fdec,0xFF9898ff,0xFF9898ff,0xFFe3d6ff,0xFF9898ff};
+        int[] b={0x8Afde6cc,0x8Afde6cc,0x8Afbf3ce,0x8Ae3d6ff,0x8Affc7f1,0x8Affd1d1,0x8Afffdba,0x8Ae3d6ff,0x8Ac7fdec,0x8Afffdba,0x8Affd1d1,0x8Ac7fdec,0x8A9898ff,0x8A9898ff,0x8Ae3d6ff,0x8A9898ff};
 
         patitionInfoVoList = new ArrayList<>();
         for(int i=0;i<p.length;i++){
@@ -1991,6 +1983,8 @@ public class MapTypeDemo extends AppCompatActivity {
                 topview.setVisibility(View.INVISIBLE);
                 leftview.setVisibility(View.INVISIBLE);
                 rightview.setVisibility(View.INVISIBLE);
+                selectTagView.setVisibility(View.INVISIBLE);
+                mRecyclerView.setVisibility(View.INVISIBLE);
                 group_searchview.setVisibility(View.VISIBLE);
 
                 surveyTopView();
