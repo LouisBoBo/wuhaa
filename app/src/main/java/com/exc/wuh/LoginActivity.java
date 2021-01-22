@@ -150,10 +150,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //测试用
-//        Intent intent = new Intent(LoginActivity.this,MapTypeDemo.class);
-//        startActivity(intent);
-//        finish();
     }
     //登录请求
     private void userloginHttp(String username,String password,String code){
