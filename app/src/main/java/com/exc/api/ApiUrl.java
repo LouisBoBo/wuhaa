@@ -2,8 +2,8 @@ package com.exc.api;
 
 public class ApiUrl {
 
-//    public static final String SERVICES_ADDRESS ="http://192.168.112.78:9702/";
-    public static final String SERVICES_ADDRESS ="http://10.192.47.10:9702/";
+    public static final String SERVICES_ADDRESS ="http://192.168.112.78:9702/";
+//    public static final String SERVICES_ADDRESS ="http://10.192.47.10:9702/";
 
 
     //如果有端口

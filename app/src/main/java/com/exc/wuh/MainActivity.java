@@ -391,25 +391,7 @@ public class MainActivity extends AppCompatActivity {
     //新开一个离线界面
     public void OfflineInent (){
         ArrayList<MKOLUpdateElement> localMapList=mOffline.getAllUpdateInfo();
-//        if(localMapList.size() > 0){
-//
-//            Intent intent = new Intent();
-//            intent.putExtra("customStyle", true);
-//            intent.putExtra("x", localMapList.get(1).geoPt.longitude);
-//            intent.putExtra("y", localMapList.get(1).geoPt.latitude);
-//            intent.putExtra("level", 13.0f);
-//            intent.setClass(MainActivity.this, OfflineActivity.class);
-//            startActivity(intent);
-//        }
-
-//        Intent intent = new Intent();
-//        intent.putExtra("customStyle", true);
-//        intent.putExtra("x",localMapList.get(1).geoPt.longitude);
-//        intent.putExtra("y",  localMapList.get(1).geoPt.latitude);
-//        intent.putExtra("level", 13.0f);
-//        intent.setClass(MainActivity.this, MapTypeDemo.class);
-//        startActivity(intent);
-
+        
         Intent intent = new Intent();
 //        intent.putExtra("customStyle", true);
 //        intent.putExtra("x", e.geoPt.longitude);
