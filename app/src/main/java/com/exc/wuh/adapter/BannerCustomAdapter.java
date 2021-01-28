@@ -50,8 +50,8 @@ public class BannerCustomAdapter extends BannerAdapter<DataBean, BannerCustomAda
                 .load(data.imageUrl)
                 .placeholder(R.mipmap.icon_smallnormal_none)
                 .into(holder.imageView);
-
-        holder.content.setText(data.title);
+        String photoname = data.title !=null?data.title.replace(".jpg",""):"";
+        holder.content.setText(photoname);
     }
 
 
