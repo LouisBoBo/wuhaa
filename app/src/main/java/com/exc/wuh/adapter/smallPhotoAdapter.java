@@ -43,7 +43,7 @@ public class smallPhotoAdapter extends RecyclerView.Adapter<smallPhotoAdapter.VH
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         SjcityvideogetVo.BuildingBean.ImageListBean bean = imageList.get(position);
-        String url = ApiUrl.SERVICES_ADDRESS + bean.getPhotoName() + "." + bean.getFileType();
+        String url = ApiUrl.IMAGE_SERVICES_ADDRESS + bean.getPhotoName() + "." + bean.getFileType();
         holder.img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         GlideShowUtil.showImage(DemoConext, holder.img, url, R.mipmap.icon_smallnormal_none, R.mipmap.icon_smallnormal_none);
 

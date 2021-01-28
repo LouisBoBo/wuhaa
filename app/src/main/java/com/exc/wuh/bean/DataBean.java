@@ -31,7 +31,7 @@ public class DataBean {
     public static List<DataBean> setDatas(List<SjcityvideogetVo.BuildingBean.ImageListBean> imageListBeans){
         List<DataBean> list = new ArrayList<>();
         for(SjcityvideogetVo.BuildingBean.ImageListBean bean : imageListBeans){
-            String url = ApiUrl.SERVICES_ADDRESS + bean.getPhotoName() + "." + bean.getFileType();
+            String url = ApiUrl.IMAGE_SERVICES_ADDRESS + bean.getPhotoName() + "." + bean.getFileType();
             list.add(new DataBean(url,bean.getRealName(),0));
         }
         return list;

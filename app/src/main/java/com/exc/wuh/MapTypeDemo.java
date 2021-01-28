@@ -1048,7 +1048,6 @@ public class MapTypeDemo extends AppCompatActivity {
         //设置地图状态监听
         mBaiduMap.setOnMapStatusChangeListener(listener1);
 
-
         //设置地图单击事件监听
         mBaiduMap.setOnMapClickListener(listener);
 
@@ -2705,7 +2704,7 @@ public class MapTypeDemo extends AppCompatActivity {
         public View instantiateItem(ViewGroup container, int position) {
             PhotoView photoView = new PhotoView(container.getContext());
             SjcityvideogetVo.BuildingBean.ImageListBean bean = sjcityvideogetVo.getBuilding().getImageList().get(position);
-            String url = ApiUrl.SERVICES_ADDRESS + bean.getPhotoName() + "." + bean.getFileType();
+            String url = ApiUrl.IMAGE_SERVICES_ADDRESS + bean.getPhotoName() + "." + bean.getFileType();
 
             photoView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             GlideShowUtil.showImage(MapTypeDemo.this, photoView, url, R.mipmap.icon_normal_none, R.mipmap.icon_normal_none);
