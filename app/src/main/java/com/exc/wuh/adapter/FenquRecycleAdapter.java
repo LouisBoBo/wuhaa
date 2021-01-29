@@ -33,7 +33,7 @@ public class FenquRecycleAdapter extends RecyclerView.Adapter<FenquRecycleAdapte
         titleList.add("建筑总数:");
         titleList.add("离线建筑:");
         titleList.add("在线率:");
-        titleList.add("能耗总数:");
+//        titleList.add("能耗总数:");
 
         notifyDataSetChanged();
     }
@@ -50,7 +50,8 @@ public class FenquRecycleAdapter extends RecyclerView.Adapter<FenquRecycleAdapte
         paratitionList.add(String.valueOf(vo.getTotalNum()));
         paratitionList.add(String.valueOf(vo.getOfflineNum()));
         paratitionList.add(distanceString);
-        paratitionList.add(vo.getTotalEnergy() + "kwh");
+//        paratitionList.add(vo.getTotalEnergy() + "kwh");
+
         this.paratitionVo = vo;
         notifyDataSetChanged();
     }
@@ -95,7 +96,7 @@ public class FenquRecycleAdapter extends RecyclerView.Adapter<FenquRecycleAdapte
 
     @Override
     public int getItemCount() {
-        return 4;
+        return titleList.size();
     }
 
     //② 创建ViewHolder 绑定item元素

@@ -1232,15 +1232,18 @@ public class MapTypeDemo extends AppCompatActivity {
             int partitionCount = 0;
             int partitionId = 0;
             if (result) {
+
                 //获取点击的分区名称
                 clickDistrict = homeOverAllVo.getData().getPartition().get(i).getName();
 
                 //获取分区边界的中心点
                 String list[] = homeOverAllVo.getData().getPartition().get(i).getCentralPoint().split(",");
-                double lat = convertToDouble(list[0],2021);
-                double lnt = convertToDouble(list[1],2021);
+                if(list.length >1){
+                    double lat = convertToDouble(list[0],2021);
+                    double lnt = convertToDouble(list[1],2021);
+                    centerlatlng = new LatLng(lnt, lat);
+                }
 
-                centerlatlng = new LatLng(lnt, lat);
                 partitionCount = homeOverAllVo.getData().getPartition().get(i).getCount();
                 partitionId = homeOverAllVo.getData().getPartition().get(i).getId();
 

@@ -27,6 +27,7 @@ public class TopFragment extends Fragment {
     private TextView fenqu_describution;
     private TextView fenqu_titleview;
     private TextView fenqu_textview;
+    private TextView nenghao_textview;
     private View group_searchview;
     private Integer partitionId;
     private Integer partitionCount;
@@ -56,6 +57,7 @@ public class TopFragment extends Fragment {
         close_fragment = rootView.findViewById(R.id.close_fragment);
         group_searchview = getActivity().findViewById(R.id.group_searchview);
         Bmapview = getActivity().findViewById(R.id.bmapView);
+        nenghao_textview = rootView.findViewById(R.id.fenqu_content);
         close_fragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +79,7 @@ public class TopFragment extends Fragment {
         });
 
         mRecyclerView = rootView.findViewById(R.id.fenqu_recycleview);
-        GridLayoutManager manager = new GridLayoutManager(getActivity(),4);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(),3);
         mRecyclerView.setLayoutManager(manager);
 
         adapter = new FenquRecycleAdapter();
@@ -91,7 +93,7 @@ public class TopFragment extends Fragment {
         String ss = vo.getDescription().toString();
         adapter.refreshDatas(vo,is_surveyTop);
         fenqu_describution.setText(vo.getDescription().toString());
-
+        nenghao_textview.setText(String.valueOf(vo.getTotalEnergy()) + "kwh");
         if(is_surveyTop){
             fenqu_titleview.setText("武汉市总览");
             fenqu_textview.setText("项目概况");
